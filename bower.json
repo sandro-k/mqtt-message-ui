@@ -31,6 +31,6 @@
         "google-code-prettify": "~1.0.1",
         "core-elements": "Polymer/core-elements#~0.3.3",
         "code-pretty": "sandro-k/code-pretty#master",
-        "mqtt-message-detail-ui": "sandro-k/mqtt-message-detail-ui"
+        "mqtt-message-detail-ui": "sandro-k/mqtt-message-detail-ui#master"
     }
 }
