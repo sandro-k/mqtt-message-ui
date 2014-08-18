@@ -36,6 +36,7 @@
       <!--json message-->
       <template if="{{ message.type == 'json'}}">
 
+
         <code-pretty lang="json" text="{{message.payload}}" collapsed flex>
         </code-pretty>
 
@@ -64,10 +65,6 @@
         'id': -1
       },
 
-      observe: {
-
-      },
-
       created: function () {
         console.log("%s Created ", this.element.name);
         this.message = {};
@@ -89,12 +86,6 @@
         console.log("%s detached", this.element.name);
       },
 
-      attributeChanged: function(attrName, oldVal, newVal) {
-
-        //var newVal = this.getAttribute(attrName);
-        console.log(attrName, 'old: ' + oldVal, 'new:', newVal);
-
-      },
 
       showMessageDetails: function (inEvent, inDetail ,inSender) {
         inSender.parentElement.querySelector("mqtt-message-detail-ui").toggle();
