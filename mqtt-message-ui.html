@@ -12,7 +12,7 @@
       <div class="mb" layout horizontal>
         <div class="ml">
           <h4>#</h4>
-          {{id}}
+          {{messagId}}
         </div>
         <div class="ml">
           <h4>Time</h4>
@@ -29,13 +29,12 @@
         <div>
           <core-icon-button icon="info" on-click="{{showMessageDetails}}">
           </core-icon-button>
-          <mqtt-message-detail-ui id="messageUi" message="{{message}}">
+          <mqtt-message-detail-ui messagId="messageUi" message="{{message}}">
           </mqtt-message-detail-ui>
         </div>
       </div>
       <!--json message-->
       <template if="{{ message.type == 'json'}}">
-
 
         <code-pretty lang="json" text="{{message.payload}}" collapsed flex>
         </code-pretty>
@@ -51,7 +50,6 @@
           <div flex>
             {{message.payload}}
           </div>
-
         </div>
       </template>
 
@@ -62,30 +60,12 @@
 
       publish: {
         'message': {},
-        'id': -1
+        'messagId': -1
       },
 
       created: function () {
-        console.log("%s Created ", this.element.name);
         this.message = {};
       },
-      ready: function () {
-        console.log("%s ready", this.element.name);
-        this.test = "test";
-      },
-
-      attached: function () {
-        console.log("%s attached", this.element.name);
-      },
-
-      domReady: function() {
-        console.log("%s domReady", this.element.name);
-      },
-
-      detached: function() {
-        console.log("%s detached", this.element.name);
-      },
-
 
       showMessageDetails: function (inEvent, inDetail ,inSender) {
         inSender.parentElement.querySelector("mqtt-message-detail-ui").toggle();
