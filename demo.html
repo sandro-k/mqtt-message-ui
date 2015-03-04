@@ -3,35 +3,35 @@
 <head lang="en">
   <meta charset="UTF-8">
   <title>mqtt-message-ui demo</title>
-  <script src="../platform/platform.js"></script>
+  <script src="../webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="mqtt-message-ui.html">
-  <link rel="import" href="../core-icon-button/core-icon-button.html"/>
-  <style>
-
-  </style>
 </head>
 <body fullbleed unresolved>
 
-
 <polymer-element name="demo-tag">
-  <!-- outermost template defines the element's shadow DOM -->
   <template>
     <mqtt-message-ui message="{{message}}"></mqtt-message-ui>
     <mqtt-message-ui message="{{message2}}"></mqtt-message-ui>
   </template>
   <script>
     Polymer('demo-tag', {
-      ready: function() {
+      ready: function () {
         // populate the element’s data model
         this.message = {topic: "any/Topic", qos: 1, dub: false, "type": 'json', "payload": '{ "type": "a"}'};
 
-        var object = {"id":"387","name":"greenhouse","description":"The sensorbox of the greenhouse on my terrace","datastreams":[{"id":"9347","name":"temperature","description":"Temperature"},{"id":"9348","name":"Humidity","description":"Humidity"}]};
+        var object = {
+          "id": "387",
+          "name": "greenhouse",
+          "description": "The sensorbox of the greenhouse on my terrace",
+          "datastreams": [{"id": "9347", "name": "temperature", "description": "Temperature"}, {
+            "id": "9348",
+            "name": "Humidity",
+            "description": "Humidity"
+          }]
+        };
 
         this.message2 = {topic: "any/Topic", qos: 2, dub: false, "type": 'json', "payload": ""};
         this.message2.payload = JSON.stringify(object, null, 2);
-
-
-
       }
     });
   </script>
@@ -39,8 +39,6 @@
 
 
 <demo-tag></demo-tag>
-
-
 
 </body>
 </html>
