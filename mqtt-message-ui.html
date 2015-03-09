@@ -30,32 +30,33 @@
           </span>
         </div>
         <div flex></div>
+
         <div>
           <core-icon-button icon="info" on-click="{{showMessageDetails}}"></core-icon-button>
-          <mqtt-message-detail-ui
-              id="messageUi"
-              message="[[message]]">
-          </mqtt-message-detail-ui>
+          <mqtt-message-detail-ui id="messageUi" message="[[message]]"></mqtt-message-detail-ui>
         </div>
+
       </div>
+
       <!--json message-->
       <template if="{{ message.type == 'json'}}">
-
+        
         <code-pretty
             lang="json"
-            text="[[message.payload]]"
             collapsed
-            flex>
+            text="[[message.payload]]">
         </code-pretty>
 
       </template>
 
       <!--plain message-->
       <template if="{{ message.type != 'json' }}">
+
         <div layout horizontal center>
           <div class="mr"><h4>Message:</h4></div>
           <div flex>[[message.payload]]</div>
         </div>
+
       </template>
 
     </div>
