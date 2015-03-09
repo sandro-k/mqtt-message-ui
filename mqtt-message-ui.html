@@ -1,9 +1,9 @@
 <!--polymer-->
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../mqtt-message-detail-ui/mqtt-message-detail-ui.html"/>
+<link rel="import" href="../core-icon-button/core-icon-button.html"/>
 
 <script src="../moment/min/moment.min.js"></script>
-
 <!--element definition-->
 <polymer-element name="mqtt-message-ui" condstructor="MqttMessageUI">
   <template>
@@ -12,31 +12,40 @@
       <div class="mb" layout horizontal>
         <div class="ml">
           <h4>#</h4>
-          {{messagId}}
+          [[messagId]]
         </div>
         <div class="ml">
           <h4>Time</h4>
-          {{message.timestamp | moment }}</div>
+          [[message.timestamp | moment ]]</div>
         <div class="ml">
           <h4>Topic</h4>
-          <span class="badge" flex one>{{message.topic}}</span>
+          <span class="badge" flex one>
+            [[message.topic]]
+          </span>
         </div>
         <div class="ml">
           <h4>QoS</h4>
-          <span class="badge"flex one>{{message.qos}}</span>
+          <span class="badge"flex one>
+            [[message.qos]]
+          </span>
         </div>
         <div flex></div>
         <div>
-          <core-icon-button icon="info" on-click="{{showMessageDetails}}">
-          </core-icon-button>
-          <mqtt-message-detail-ui messagId="messageUi" message="{{message}}">
+          <core-icon-button icon="info" on-click="{{showMessageDetails}}"></core-icon-button>
+          <mqtt-message-detail-ui
+              id="messageUi"
+              message="[[message]]">
           </mqtt-message-detail-ui>
         </div>
       </div>
       <!--json message-->
       <template if="{{ message.type == 'json'}}">
 
-        <code-pretty lang="json" text="{{message.payload}}" collapsed flex>
+        <code-pretty
+            lang="json"
+            text="[[message.payload]]"
+            collapsed
+            flex>
         </code-pretty>
 
       </template>
@@ -44,12 +53,8 @@
       <!--plain message-->
       <template if="{{ message.type != 'json' }}">
         <div layout horizontal center>
-          <div class="mr">
-            <h4>Message:</h4>
-          </div>
-          <div flex>
-            {{message.payload}}
-          </div>
+          <div class="mr"><h4>Message:</h4></div>
+          <div flex>[[message.payload]]</div>
         </div>
       </template>
 
@@ -57,7 +62,6 @@
   </template>
   <script>
     Polymer("mqtt-message-ui", {
-
       publish: {
         'message': {},
         'messagId': -1
