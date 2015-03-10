@@ -1,6 +1,6 @@
 {
   "name": "mqtt-message-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "authors": [
     "Sandro Kock <sandro.kock@gmail.com>"
   ],
@@ -26,11 +26,11 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "~0.5.5",
+    "polymer": "Polymer/polymer#~0.5.5",
     "moment": "~2.7.0",
     "google-code-prettify": "~1.0.1",
-    "core-elements": "Polymer/core-elements#~0.3.3",
-    "code-pretty": "sandro-k/code-pretty#master",
-    "mqtt-message-detail-ui": "sandro-k/mqtt-message-detail-ui#master"
+    "core-elements": "Polymer/core-elements#~0.5.5",
+    "code-pretty": "sandro-k/code-pretty#~0.0.4",
+    "mqtt-message-detail-ui": "sandro-k/mqtt-message-detail-ui#~0.0.3"
   }
 }
