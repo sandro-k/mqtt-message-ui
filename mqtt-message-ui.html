@@ -2,13 +2,18 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../mqtt-message-detail-ui/mqtt-message-detail-ui.html"/>
 <link rel="import" href="../core-icon-button/core-icon-button.html"/>
+<link rel="import" href="../core-style/core-style.html"/>
+<link rel="import" href="../mqtt-lens/mqttlens-theme.html"/>
+
 
 <script src="../moment/min/moment.min.js"></script>
 <!--element definition-->
 <polymer-element name="mqtt-message-ui" condstructor="MqttMessageUI">
   <template>
+    <core-style ref="mqttlenstheme"></core-style>
     <link rel="stylesheet" href="mqtt-message-ui.css"/>
-    <div class="row message message-{{message.connectionID}} mr pl"  layout vertical>
+    <core-style ref="[[message.connectionID]]"></core-style>
+    <div class="row message message-[[message.connectionID]] mr pl"  layout vertical>
       <div class="mb" layout horizontal>
         <div class="ml">
           <h4>#</h4>
