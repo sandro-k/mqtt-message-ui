@@ -56,13 +56,16 @@
 
       <!--plain message-->
       <template if="{{ message.type != 'json' }}">
-
         <div layout horizontal center>
           <div class="mr"><h4>Message:</h4></div>
-          <div flex>[[message.payload]]</div>
+          <div id="CopyElement" flex style="-webkit-user-select: text">[[message.payload]]</div>
+          <core-icon-button on-click="[[copyMessage]]" icon="content-copy"></core-icon-button>
         </div>
-
       </template>
+
+      <paper-toast duration="4000" id="toast"></paper-toast>
+
+      <!--<textarea style="-webkit-user-select: text; display: none" id="CopyElement"></textarea>-->
 
     </div>
   </template>
@@ -79,6 +82,33 @@
 
       showMessageDetails: function (inEvent, inDetail ,inSender) {
         inSender.parentElement.querySelector("mqtt-message-detail-ui").toggle();
+      },
+
+      copyMessage: function (inEvent, inDetail ,inSender){
+
+        console.log("copyMessage", arguments);
+
+        var range = document.createRange();
+        range.selectNode(this.$.CopyElement);
+        window.getSelection().addRange(range);
+
+        try {
+          // Now that we've selected the anchor text, execute the copy command
+          document.execCommand('copy');
+          this.makeToast("Message payload copied to clipboard");
+        } catch(err) {
+          this.makeToast("Opps, unable to copy message payload to clipboard");
+        }
+
+        // Remove the selections - NOTE: Should use
+        // removeRange(range) when it is supported
+        window.getSelection().removeAllRanges();
+
+      },
+
+      makeToast: function (text) {
+        this.$.toast.text = text;
+        this.$.toast.show();
       },
 
       moment: function (value) {
