@@ -85,9 +85,6 @@
       },
 
       copyMessage: function (inEvent, inDetail ,inSender){
-
-        console.log("copyMessage", arguments);
-
         var range = document.createRange();
         range.selectNode(this.$.CopyElement);
         window.getSelection().addRange(range);
@@ -97,7 +94,7 @@
           document.execCommand('copy');
           this.makeToast("Message payload copied to clipboard");
         } catch(err) {
-          this.makeToast("Opps, unable to copy message payload to clipboard");
+          this.makeToast("Oops, unable to copy message payload to clipboard");
         }
 
         // Remove the selections - NOTE: Should use
