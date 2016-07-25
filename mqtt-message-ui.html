@@ -12,8 +12,26 @@
   <template>
     <core-style ref="mqttlenstheme"></core-style>
     <link rel="stylesheet" href="mqtt-message-ui.css"/>
+    <style type="text/css">
+      core-icon-button.copy-button-json {
+        z-index: 50;
+        position: relative;
+        float: right;
+        border-bottom: 1px dotted #888;
+        padding-bottom: 3px;
+        padding-top: 5px;
+        background: #c4ee99;
+        border-radius: 0 5px 5px 0;
+        margin: 1px 1px 0 0;
+      }
+
+      core-icon-button.copy-button-json:hover {
+        color: #000;
+        box-shadow: none;
+      }
+    </style>
     <core-style ref="[[message.connectionID]]"></core-style>
-    <div class="row message message-[[message.connectionID]] mr pl"  layout vertical>
+    <div class="row message message-[[message.connectionID]] mr pl" layout vertical>
       <div class="mb" layout horizontal>
         <div class="ml">
           <h4>#</h4>
@@ -21,7 +39,8 @@
         </div>
         <div class="ml">
           <h4>Time</h4>
-          [[message.timestamp | moment ]]</div>
+          [[message.timestamp | moment ]]
+        </div>
         <div class="ml">
           <h4>Topic</h4>
           <span class="badge" flex one>
@@ -30,7 +49,7 @@
         </div>
         <div class="ml">
           <h4>QoS</h4>
-          <span class="badge"flex one>
+          <span class="badge" flex one>
             [[message.qos]]
           </span>
         </div>
@@ -46,18 +65,26 @@
       <!--json message-->
       <template if="{{ message.type == 'json'}}">
 
-        <code-pretty
-            lang="json"
-            collapsed
-            text="[[message.payload]]">
-        </code-pretty>
+        <div>
+          <core-icon-button class="copy-button-json" on-click="[[copyMessage]]" icon="content-copy"></core-icon-button>
+          <code-pretty
+              lang="json"
+              collapsed
+              text="[[message.payload]]">
+          </code-pretty>
+          <div id="CopyElement" flex style="position: absolute; z-index:-1;-webkit-user-select: text">
+            [[message.payload]]
+          </div>
+        </div>
 
       </template>
 
       <!--plain message-->
       <template if="{{ message.type != 'json' }}">
         <div layout horizontal center>
-          <div class="mr"><h4>Message:</h4></div>
+          <div class="mr">
+            <h4>Message:</h4>
+          </div>
           <div id="CopyElement" flex style="-webkit-user-select: text">[[message.payload]]</div>
           <core-icon-button on-click="[[copyMessage]]" icon="content-copy"></core-icon-button>
         </div>
@@ -80,11 +107,11 @@
         this.message = {};
       },
 
-      showMessageDetails: function (inEvent, inDetail ,inSender) {
+      showMessageDetails: function (inEvent, inDetail, inSender) {
         inSender.parentElement.querySelector("mqtt-message-detail-ui").toggle();
       },
 
-      copyMessage: function (inEvent, inDetail ,inSender){
+      copyMessage: function (inEvent, inDetail, inSender) {
         var range = document.createRange();
         range.selectNode(this.$.CopyElement);
         window.getSelection().addRange(range);
@@ -93,7 +120,7 @@
           // Now that we've selected the anchor text, execute the copy command
           document.execCommand('copy');
           this.makeToast("Message payload copied to clipboard");
-        } catch(err) {
+        } catch (err) {
           this.makeToast("Oops, unable to copy message payload to clipboard");
         }
 
